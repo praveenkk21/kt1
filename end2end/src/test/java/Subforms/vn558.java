@@ -9,7 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class vn558 extends SubForm {
 	public static void vn_558(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+		
+		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		int j = driver.findElements(By.cssSelector("span.checkmark")).size();
 		System.out.println(j);
 		for (int i = 0; i <= 4; i++) {

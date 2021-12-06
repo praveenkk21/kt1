@@ -37,7 +37,7 @@ public class Driver {
 
 	}
 	public static WebDriver chrome() {
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\praveenkumar\\Documents\\chromedriver_win32 (1)\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\praveenkumar\\Documents\\chromedriver_win32 (2)\\chromedriver3.exe");
 		DesiredCapabilities des = DesiredCapabilities.chrome();
 		des.setAcceptInsecureCerts(true);
 		ChromeOptions c = new ChromeOptions();

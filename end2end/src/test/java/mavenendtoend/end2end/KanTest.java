@@ -22,7 +22,7 @@ public class KanTest {
 
 	@Test
 	public static void browser() throws IOException, InterruptedException {
-		File file = new File("C:\\Users\\praveenkumar\\eclipse-workspace\\end2end\\file.properties");
+		File file = new File("C:\\Users\\praveenkumar\\git\\repository\\end2end\\file.properties");
 		FileInputStream fi = new FileInputStream(file);
 		Properties fi1 = new Properties();
 		fi1.load(fi);
@@ -47,13 +47,13 @@ public class KanTest {
 
 		if (fi1.getProperty("site").equals("working")) {
 			UserLogin.workingUserLogin(driver, username, password);
-		} else if (fi1.getProperty("site").equals("working")) {
+		} else if (fi1.getProperty("site").equals("prod")) {
 			UserLogin.prodUserLogin(driver, username, password);
 		} else {
 			UserLogin.netUserLogin(driver, username, password);
 		}
 
-		if (subformfrom.equals("Episode")) {
+		if (subformfrom.equals("Episodes")) {
 			fromEpisode(driver, username, password, Client, subformname, subformlibraryid);
 		} else {
 			fromIntake(driver, username, password, intakeClient, subformname, subformlibraryid);
@@ -65,10 +65,10 @@ public class KanTest {
 		driver.findElement(By.id("1")).click();
 		driver.findElement(By.id("td_2")).click();
 		driver.findElement(By.linkText("" + intakeClient + "")).click();
-		driver.findElement(By.id("li_SubForms")).click();
+		driver.findElement(By.id("MainContent_li_SubForms")).click();
 		driver.findElement(By.id("btnAddNew")).click();
 		driver.findElement(By.xpath("//*[@class='search_bx searchbox']")).sendKeys("" + subformname + "");
-		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
 		driver.findElement(By.xpath("//*[@id=\"table_subform_" + subformlibraryid + "\"]/tbody/tr/td")).click();
 		// String k=driver.getWindowHandle();
 
@@ -105,9 +105,11 @@ public class KanTest {
 
 		driver.findElement(By.xpath("//*[@id=\'btnAddNew\']")).click();
 		driver.findElement(By.xpath("//*[@class='search_bx searchbox']")).sendKeys("" + subformname + "");
-		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-		driver.findElement(By.xpath("//*[@id=\"table_subform_" + subformlibraryid + "\"]/tbody/tr/td")).click();
-		// String k=driver.getWindowHandle();
+		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
+		WebElement sfid = driver.findElement(By.xpath("//*[@id=\"table_subform_" + subformlibraryid + "\"]/tbody/tr/td"));
+		sfid.click();
+		//sfid.sendKeys(Keys.ARROW_DOWN, Keys.ENTER); //*[@id="table_subform_562"]/tbody/tr/td
+		// String k=driver.getWindowHandle();//*[@id="table_subform_101"]/tbody/tr/td
 
 		SubForm.subForm(driver, subformlibraryid);
 
