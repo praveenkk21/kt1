@@ -17,7 +17,7 @@ public class UserLogin {
 
 	}
 	public static void prodUserLogin(WebDriver driver,String username2, String password2) {
-		driver.get("https://192.168.1.15/Working/UI/Common/Login.aspx");
+		driver.get("https://192.168.1.16/ProdMaster/UI/Common/Login.aspx");
 		driver.manage().window().maximize();
 		driver.findElement(By.id("txt_username")).sendKeys(""+username2+"");
 		// driver.findElement(By.id("SALogIn_btn_LogIn")).click();

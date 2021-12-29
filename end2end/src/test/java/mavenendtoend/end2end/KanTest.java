@@ -6,8 +6,12 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,11 +21,31 @@ import org.testng.annotations.Test;
 import Subforms.SubForm;
 public class KanTest {
 	static WebDriver driver;
-	static String username, password, Client, intakeClient, subformname, subformfrom;
+	static String username, password, Client, intakeClient, subformname, subformfrom,site;
 	static String subformlibraryid;
 
 	@Test
-	public static void browser() throws IOException, InterruptedException {
+	public static void browser() throws Exception {
+		
+		ReadExcelFile objExcelFile = new ReadExcelFile();
+		String filePath = System.getProperty("user.dir");
+		System.out.println(filePath);
+		Sheet MySheet=ReadExcelFile.readExcel(filePath, "Data.xlsx", "data");
+		
+		String browsername = objExcelFile.cellValueString(0, 1, MySheet);
+		System.out.println(browsername);
+		username = objExcelFile.cellValueString(2, 1, MySheet);
+		password = objExcelFile.cellValueString(3, 1, MySheet);
+		intakeClient = objExcelFile.cellValueString(4, 1, MySheet);
+		Client = objExcelFile.cellValueString(5, 1, MySheet);
+		subformname = objExcelFile.cellValueString(6, 1, MySheet);
+		subformlibraryid =  String.valueOf(objExcelFile.cellValueInt(7, 1, MySheet));
+		subformfrom = objExcelFile.cellValueString(8, 1, MySheet);
+		site=objExcelFile.cellValueString(1, 1, MySheet);
+		
+		
+		
+		/* Below code is for get the data from properties file
 		File file = new File("C:\\Users\\praveenkumar\\git\\repository\\end2end\\file.properties");
 		FileInputStream fi = new FileInputStream(file);
 		Properties fi1 = new Properties();
@@ -34,7 +58,9 @@ public class KanTest {
 		subformname = fi1.getProperty("subformname");
 		subformlibraryid = fi1.getProperty("subformlibraryid");
 		subformfrom = fi1.getProperty("subformfrom");
-
+		site=fi1.getProperty("site");
+		 */
+		
 		if (browsername.equals("Chrome")) {
 			System.out.println(browsername);
 			driver = Driver.chrome();
@@ -45,9 +71,9 @@ public class KanTest {
 			driver = Driver.firefox();
 		}
 
-		if (fi1.getProperty("site").equals("working")) {
+		if (site.equals("working")) {
 			UserLogin.workingUserLogin(driver, username, password);
-		} else if (fi1.getProperty("site").equals("prod")) {
+		} else if (site.equals("prod")) {
 			UserLogin.prodUserLogin(driver, username, password);
 		} else {
 			UserLogin.netUserLogin(driver, username, password);
@@ -61,7 +87,7 @@ public class KanTest {
 	}
 
 	public static void fromIntake(WebDriver driver, String username, String password, String intakeClient,
-			String subformname, String subformlibraryid) throws InterruptedException {
+			String subformname, String subformlibraryid) throws Exception {
 		driver.findElement(By.id("1")).click();
 		driver.findElement(By.id("td_2")).click();
 		driver.findElement(By.linkText("" + intakeClient + "")).click();
@@ -83,7 +109,7 @@ public class KanTest {
 	}
 
 	public static void fromEpisode(WebDriver driver, String username, String password, String Client,
-			String subformname, String subformlibraryid) throws InterruptedException {
+			String subformname, String subformlibraryid) throws Exception {
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 		String url = driver.getCurrentUrl();
 
@@ -138,16 +164,39 @@ public class KanTest {
 		driver.findElement(By.id("btnSave")).click();
 		Thread.sleep(5000);
 	}
+	
+	public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception{
+		//Convert web driver object to TakeScreenshot
+		TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+		//Call getScreenshotAs method to create image file
+		File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+		//Move image file to new destination
+		File DestFile=new File(fileWithPath);
+		//Copy file at destination
+		FileUtils.copyFile(SrcFile, DestFile);
+		}
 
-	public static void subFormSubmitAndApprove() {
+
+	public static void subFormSubmitAndApprove() throws Exception {
+		
 		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("btnSubmit")));
 		driver.findElement(By.id("btnSubmit")).click();
 		driver.switchTo().alert().accept();
-		driver.findElement(By.id("btnApprove")).click();
+		Thread.sleep(2000);
+		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"btnApprove\"]")));
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'btnApprove')]")));
+		driver.findElement(By.xpath("//*[contains(@id,'btnApprove')]")).click();
 		driver.switchTo().alert().accept();
-		driver.quit();
+		//driver.quit();
+		//driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+		//wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'btnPrint')]")));
+		//driver.findElement(By.id("btnPrint")).click();
+		//driver.findElement(By.id("download")).click();
+		takeSnapShot(driver, "C:\\Users\\praveenkumar\\Downloads\\MyAutomation\\selenium-server-3.141.59\\Screnshots\\1.jpg");
 	}
 
+	
+	
 }
