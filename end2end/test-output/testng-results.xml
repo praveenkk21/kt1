@@ -2,12 +2,12 @@
 <testng-results ignored="0" total="1" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2021-12-29T19:35:07 IST" name="Default suite" finished-at="2021-12-29T19:36:36 IST" duration-ms="88178">
+  <suite started-at="2021-12-30T19:30:11 IST" name="Default suite" finished-at="2021-12-30T19:30:56 IST" duration-ms="44920">
     <groups>
     </groups>
-    <test started-at="2021-12-29T19:35:07 IST" name="Default test" finished-at="2021-12-29T19:36:36 IST" duration-ms="88178">
+    <test started-at="2021-12-30T19:30:11 IST" name="Default test" finished-at="2021-12-30T19:30:56 IST" duration-ms="44920">
       <class name="mavenendtoend.end2end.KanTest">
-        <test-method signature="browser()[pri:0, instance:mavenendtoend.end2end.KanTest@56de5251]" started-at="2021-12-29T19:35:07 IST" name="browser" finished-at="2021-12-29T19:36:36 IST" duration-ms="88148" status="FAIL">
+        <test-method signature="browser()[pri:0, instance:mavenendtoend.end2end.KanTest@56de5251]" started-at="2021-12-30T19:30:11 IST" name="browser" finished-at="2021-12-30T19:30:56 IST" duration-ms="44887" status="FAIL">
           <exception class="org.openqa.selenium.UnhandledAlertException">
             <message>
               <![CDATA[unexpected alert open: {Alert text : SuperSignature: License expected for domain: 192.168.4.74}
@@ -15,8 +15,8 @@
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
 System info: host: 'GSK-QA-062', ip: '192.168.1.134', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '14.0.1'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 96.0.4664.110, chrome: {chromedriverVersion: 96.0.4664.45 (76e4c1bb2ab46..., userDataDir: C:\Users\PRAVEE~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:62314}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 76e460f89b81d20bb0cc1aedf74e4cbe
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 96.0.4664.110, chrome: {chromedriverVersion: 96.0.4664.45 (76e4c1bb2ab46..., userDataDir: C:\Users\PRAVEE~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:57879}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9a6fc098c1902d156b270943f218a060
 *** Element info: {Using=id, value=ctlSignature}]]>
             </message>
             <full-stacktrace>
@@ -25,8 +25,8 @@ Session ID: 76e460f89b81d20bb0cc1aedf74e4cbe
 Build info: version: '3.141.59', revision: 'e82be7d358', time: '2018-11-14T08:25:48'
 System info: host: 'GSK-QA-062', ip: '192.168.1.134', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '14.0.1'
 Driver info: org.openqa.selenium.chrome.ChromeDriver
-Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 96.0.4664.110, chrome: {chromedriverVersion: 96.0.4664.45 (76e4c1bb2ab46..., userDataDir: C:\Users\PRAVEE~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:62314}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 76e460f89b81d20bb0cc1aedf74e4cbe
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 96.0.4664.110, chrome: {chromedriverVersion: 96.0.4664.45 (76e4c1bb2ab46..., userDataDir: C:\Users\PRAVEE~1\AppData\L...}, goog:chromeOptions: {debuggerAddress: localhost:57879}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Session ID: 9a6fc098c1902d156b270943f218a060
 *** Element info: {Using=id, value=ctlSignature}
 at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:120)
 at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
@@ -39,7 +39,7 @@ at org.openqa.selenium.By$ById.findElement(By.java:188)
 at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:315)
 at mavenendtoend.end2end.ClientSign.clientSignSubform(ClientSign.java:27)
 at mavenendtoend.end2end.KanTest.fromEpisode(KanTest.java:144)
-at mavenendtoend.end2end.KanTest.browser(KanTest.java:83)
+at mavenendtoend.end2end.KanTest.browser(KanTest.java:81)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

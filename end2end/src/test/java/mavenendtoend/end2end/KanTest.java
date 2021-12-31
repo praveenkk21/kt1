@@ -19,48 +19,46 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import Subforms.SubForm;
+
+@SuppressWarnings("unused")
 public class KanTest {
 	static WebDriver driver;
-	static String username, password, Client, intakeClient, subformname, subformfrom,site;
-	static String subformlibraryid;
+	static String username, password, Client, intakeClient, subformname, subformfrom, site;
+	static String subformlibraryid,filePath;
 
 	@Test
 	public static void browser() throws Exception {
-		
+
 		ReadExcelFile objExcelFile = new ReadExcelFile();
-		String filePath = System.getProperty("user.dir");
+		filePath = System.getProperty("user.dir");
 		System.out.println(filePath);
-		Sheet MySheet=ReadExcelFile.readExcel(filePath, "Data.xlsx", "data");
-		
+		Sheet MySheet = ReadExcelFile.readExcel(filePath, "Data.xlsx", "Data");
+
 		String browsername = objExcelFile.cellValueString(0, 1, MySheet);
 		System.out.println(browsername);
+		ReadExcelFile.writeExcel(filePath, "Data.xlsx", "Data", 0, 2, "Done");
 		username = objExcelFile.cellValueString(2, 1, MySheet);
 		password = objExcelFile.cellValueString(3, 1, MySheet);
 		intakeClient = objExcelFile.cellValueString(4, 1, MySheet);
 		Client = objExcelFile.cellValueString(5, 1, MySheet);
 		subformname = objExcelFile.cellValueString(6, 1, MySheet);
-		subformlibraryid =  String.valueOf(objExcelFile.cellValueInt(7, 1, MySheet));
+		subformlibraryid = String.valueOf(objExcelFile.cellValueInt(7, 1, MySheet));
 		subformfrom = objExcelFile.cellValueString(8, 1, MySheet);
-		site=objExcelFile.cellValueString(1, 1, MySheet);
-		
-		
-		
-		/* Below code is for get the data from properties file
-		File file = new File("C:\\Users\\praveenkumar\\git\\repository\\end2end\\file.properties");
-		FileInputStream fi = new FileInputStream(file);
-		Properties fi1 = new Properties();
-		fi1.load(fi);
-		String browsername = fi1.getProperty("Browser");
-		username = fi1.getProperty("username");
-		password = fi1.getProperty("password");
-		intakeClient = fi1.getProperty("intakeClient");
-		Client = fi1.getProperty("Client");
-		subformname = fi1.getProperty("subformname");
-		subformlibraryid = fi1.getProperty("subformlibraryid");
-		subformfrom = fi1.getProperty("subformfrom");
-		site=fi1.getProperty("site");
+		site = objExcelFile.cellValueString(1, 1, MySheet);
+
+		/*
+		 * Below code is for get the data from properties file File file = new
+		 * File("C:\\Users\\praveenkumar\\git\\repository\\end2end\\file.properties");
+		 * FileInputStream fi = new FileInputStream(file); Properties fi1 = new
+		 * Properties(); fi1.load(fi); String browsername = fi1.getProperty("Browser");
+		 * username = fi1.getProperty("username"); password =
+		 * fi1.getProperty("password"); intakeClient = fi1.getProperty("intakeClient");
+		 * Client = fi1.getProperty("Client"); subformname =
+		 * fi1.getProperty("subformname"); subformlibraryid =
+		 * fi1.getProperty("subformlibraryid"); subformfrom =
+		 * fi1.getProperty("subformfrom"); site=fi1.getProperty("site");
 		 */
-		
+
 		if (browsername.equals("Chrome")) {
 			System.out.println(browsername);
 			driver = Driver.chrome();
@@ -132,9 +130,11 @@ public class KanTest {
 		driver.findElement(By.xpath("//*[@id=\'btnAddNew\']")).click();
 		driver.findElement(By.xpath("//*[@class='search_bx searchbox']")).sendKeys("" + subformname + "");
 		driver.manage().timeouts().implicitlyWait(500, TimeUnit.SECONDS);
-		WebElement sfid = driver.findElement(By.xpath("//*[@id=\"table_subform_" + subformlibraryid + "\"]/tbody/tr/td"));
+		WebElement sfid = driver
+				.findElement(By.xpath("//*[@id=\"table_subform_" + subformlibraryid + "\"]/tbody/tr/td"));
 		sfid.click();
-		//sfid.sendKeys(Keys.ARROW_DOWN, Keys.ENTER); //*[@id="table_subform_562"]/tbody/tr/td
+		// sfid.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+		// //*[@id="table_subform_562"]/tbody/tr/td
 		// String k=driver.getWindowHandle();//*[@id="table_subform_101"]/tbody/tr/td
 
 		SubForm.subForm(driver, subformlibraryid);
@@ -164,18 +164,17 @@ public class KanTest {
 		driver.findElement(By.id("btnSave")).click();
 		Thread.sleep(5000);
 	}
-	
-	public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception{
-		//Convert web driver object to TakeScreenshot
-		TakesScreenshot scrShot =((TakesScreenshot)webdriver);
-		//Call getScreenshotAs method to create image file
-		File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
-		//Move image file to new destination
-		File DestFile=new File(fileWithPath);
-		//Copy file at destination
-		FileUtils.copyFile(SrcFile, DestFile);
-		}
 
+	public static void takeSnapShot(WebDriver webdriver, String fileWithPath) throws Exception {
+		// Convert web driver object to TakeScreenshot
+		TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
+		// Call getScreenshotAs method to create image file
+		File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+		// Move image file to new destination
+		File DestFile = new File(fileWithPath);
+		// Copy file at destination
+		FileUtils.copyFile(SrcFile, DestFile);
+	}
 
 	public static void subFormSubmitAndApprove() throws Exception {
 		
@@ -183,12 +182,21 @@ public class KanTest {
 		WebDriverWait wait = new WebDriverWait(driver, 50);
 		wait.until(ExpectedConditions.elementToBeClickable(By.id("btnSubmit")));
 		driver.findElement(By.id("btnSubmit")).click();
+		ReadExcelFile.writeExcel(filePath, "Data.xlsx", "Data", 6, 2, "Done");
 		driver.switchTo().alert().accept();
 		Thread.sleep(2000);
 		//wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[@id=\"btnApprove\"]")));
-		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'btnApprove')]")));
+		try
+		{wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'btnApprove')]")));
 		driver.findElement(By.xpath("//*[contains(@id,'btnApprove')]")).click();
 		driver.switchTo().alert().accept();
+		}
+		catch(Exception e) 
+		{e.getMessage();}
+		finally
+		{wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'btnApprove')]")));
+		driver.findElement(By.xpath("//*[contains(@id,'btnApprove')]")).click();
+		driver.switchTo().alert().accept();}
 		//driver.quit();
 		//driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 		//wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'btnPrint')]")));
